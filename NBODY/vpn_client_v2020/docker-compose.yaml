@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+### CLOUDBOOK LOCAL #############################
+  vpn_cloudbook:
+    build:
+      context: ./cloudbook_local
+    volumes:
+      #- ./cloudbook_local/cloudbook_drive:/root/cloudbook
+      - ./cloudbook_local/vpn:/etc/openvpn/
+      #- ./cloudbook_local/share:/share
+    privileged: true
+    cap_add:
+      - NET_ADMIN
+      - SYS_ADMIN
+    devices:
+      - /dev/net/tun
+    ports:
+      - "8899:8888"
+networks:
+  default:
+    external:
+      name: cloudbook

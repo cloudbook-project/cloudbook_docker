@@ -1,0 +1,11 @@
+{	
+	"circle_info":{
+		"NAME":"local",
+		"CIRCLE_ID": "local_id",
+		"DESCRIPTION": "to run examples",
+		"NUM_ATTACHED_AGENTS": 4,
+		"DISTRIBUTED_FS": "",
+		"STATUS": "IDLE",
+		"MAX_THREADS": 4
+	}
+}
