@@ -1,7 +1,6 @@
 # cloudbook_docker
-agent and FS and VPN and project embedded into one docker container
+Docker Server an Client to test different cloudbook projects.
 
+Server and Client are connected via VPN and NFS is mounted between computers.
 
-install and config instructions:
-
-bla bla bla fran escribe aqui
+Install and config instructions are detailed in each example project folder
