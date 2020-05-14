@@ -1,0 +1,19 @@
+take 10 seconds after 1st minute and flip
+--------------------------------------------
+ffmpeg -i videos/friends.mp4 -vf hflip -ss 60 -t 10 cosa.mp4
+
+
+concatenar ( deben ser de igual resolucion)
+---------------------------------------------
+ffmpeg -f concat -safe 0 -i list.txt -c copy cosa2.mp4
+
+contenido fichero list.txt:
+----------------------------
+file 'cosa1.mp4"
+file 'cosa2.mp4"
+
+
+
+saber la duracion
+-------------------
+ffprobe -i concat.mp4 -show_entries format=duration -v quiet -of csv="p=0"

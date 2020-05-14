@@ -1,0 +1,12 @@
+{ 
+  "NAME":"DockerProject",
+  "DESCRIPTION": "to run docker examples",
+  "NUM_DESIRED_AGENTS": 2, 
+  "PROJECT_FOLDER": "base_project",
+  "AGENT_GRANT_INTERVAL":30,
+  "AGENT_STATS_INTERVAL":30, 
+  "LAN": true, 
+  "CLOUDBOOK_MAXTHREADS": 10, 
+  "NON-RELIABLE_AGENT_MODE": false, 
+  "AGENT0_ONLY_DU0":true
+}
