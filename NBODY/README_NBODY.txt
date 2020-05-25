@@ -79,14 +79,14 @@ Therefore docker name in this example is: vpnclientv2020_vpn_cloudbook_1
 #======================
 INSTRUCTIONS FOR SERVER ( only agent 0)
 1) docker exec -it <DOCKER_NAME> python3 /etc/cloudbook/cloudbook_maker2/cloudbook_maker.py -project_folder <NOMBRE_PROYECTO>
-2) docker exec -it <DOCKER_NAME> python3 /etc/cloudbook/cloudbook_agent/agent.py create -agent_id 0 -project_folder <NOMBRE_PROYECTO>
-3) docker exec -it <DOCKER_NAME> python3 /etc/cloudbook/cloudbook_agent/agent.py -agent_id agent_0 -project_folder <NOMBRE_PROYECTO> -verbose &
+2) docker exec -it <DOCKER_NAME> python3 /etc/cloudbook/cloudbook_agent/agent.py create -project_folder <NOMBRE_PROYECTO> -grant MEDIUM
+3) docker exec -it <DOCKER_NAME> python3 /etc/cloudbook/cloudbook_agent/agent.py -agent_id agent_0 -project_folder <NOMBRE_PROYECTO> -grant MEDIUM -verbose &
 
 INSTRUCTIONS FOR CLIENTS  (rest of agents)
-4) docker exec -it <DOCKER_NAME> python3 /etc/cloudbook/cloudbook_agent/agent.py create -agent_id "" -project_folder <NOMBRE_PROYECTO>
+4) docker exec -it <DOCKER_NAME> python3 /etc/cloudbook/cloudbook_agent/agent.py create -agent_id "" -project_folder <NOMBRE_PROYECTO> -grant MEDIUM
   
   for example:
-  docker exec -it vpn_client_v2020_vpn_cloudbook_1 python3 /etc/cloudbook/cloudbook_agent/agent.py create -agent_id "" -project_folder base_project
+  docker exec -it vpn_client_v2020_vpn_cloudbook_1 python3 /etc/cloudbook/cloudbook_agent/agent.py create -agent_id "" -project_folder base_project -grant MEDIUM
   
   After this command, a cloudbook agent is created. Take note of agent_ID
   
@@ -94,7 +94,7 @@ INSTRUCTIONS FOR CLIENTS  (rest of agents)
 5) docker exec -it <DOCKER_NAME> python3 /etc/cloudbook/cloudbook_agent/agent.py -agent_id <AGENT_ID_GENERATED> -project_folder <NOMBRE_PROYECTO>
 
  for example:
- docker exec -it vpn_client_v2020_vpn_cloudbook_1 python3 /etc/cloudbook/cloudbook_agent/agent.py -agent_id SXK3MBGBM0ZDHHCY50FW -project_folder base_project
+ docker exec -it vpn_client_v2020_vpn_cloudbook_1 python3 /etc/cloudbook/cloudbook_agent/agent.py -agent_id SXK3MBGBM0ZDHHCY50FW -project_folder base_project -grant MEDIUM
 
 SERVER
 7) docker exec -it DOCKER_NAME python3 /etc/cloudbook/cloudbook_deployer/cloudbook_deployer.py -project_folder <NOMBRE_PROYECTO>
