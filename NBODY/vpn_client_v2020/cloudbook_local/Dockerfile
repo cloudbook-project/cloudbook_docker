@@ -34,8 +34,6 @@ WORKDIR "/root"
 WORKDIR "/etc/cloudbook"
 RUN git clone https://github.com/cloudbook-project/cloudbook_agent.git
 
-
-ADD cloudbook_agent_fix/agent.py /etc/cloudbook/cloudbook_agent/agent.py
 WORKDIR "/etc/cloudbook/cloudbook_agent"
 
 #RUN ln -s /root/cloudbook/base_project/distributed /share
