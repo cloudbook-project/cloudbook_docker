@@ -8,13 +8,15 @@ https://docs.docker.com/engine/install/centos/
 
 2) Install docker-compose
 WINDOWS 
-Include in previous installation.
+Included in previous installation.
 LINUX-CENTOS
 https://docs.docker.com/compose/install/
 
 CREATE CONTAINERS
 
-vpn_server_v2020
+ONLY FOR AGENT 0 USER:
+//////////////////////////////////
+0) enter in subfolder vpn_server_v2020
 1) RUN: docker-compose up -d --build
 2) Identify DOCKER_NAME. In order to find DOCKER_NAME execute "docker ps", output example:
 CONTAINER ID        IMAGE                          COMMAND             CREATED             STATUS              PORTS                     NAMES (This is the DOCKER_NAME)
@@ -27,6 +29,9 @@ CONTAINER ID        IMAGE                          COMMAND             CREATED  
 
 5) By default the port in host will be 11194 it must be open in our router. Use the same port in NAT for avoid misconfigurations.
 
+
+FOR THE REST OF AGENTS:
+//////////////////////////////////
 vpn_client_v2020
 1) Inside vpn_client_v2020/cloudbook_local/vpn/client/ open the file client01.ovpn and change the next line:
 	remote vpnserverv2020_vpn_cloudbook_1 1194
