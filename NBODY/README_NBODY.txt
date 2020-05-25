@@ -88,7 +88,7 @@ INSTRUCTIONS FOR CLIENTS  (rest of agents)
   for example:
   docker exec -it vpn_client_v2020_vpn_cloudbook_1 python3 /etc/cloudbook/cloudbook_agent/agent.py create -agent_id "" -project_folder base_project
   
-  After this command, a cloudbook agent is created. TAke note of agent_ID
+  After this command, a cloudbook agent is created. Take note of agent_ID
   
 
 5) docker exec -it <DOCKER_NAME> python3 /etc/cloudbook/cloudbook_agent/agent.py -agent_id <AGENT_ID_GENERATED> -project_folder <NOMBRE_PROYECTO>
