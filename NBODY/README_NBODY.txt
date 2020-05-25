@@ -29,7 +29,13 @@ CONTAINER ID        IMAGE                          COMMAND             CREATED  
 
 5) By default the port in host will be 11194 it must be open in our router. Use the same port in NAT for avoid misconfigurations.
 
-6) modify file client01.ovpn for the rest of agents. Send the 4 files to the rest of cloudbook agents (ca.crt, client01.crt, client01.key, client01.ovpn)
+6) modify file client01.ovpn for the rest of agents. 
+   for example, instead of :
+     remote vpnserverv2020_vpn_cloudbook_1 1194
+   replace by:
+     remote 212.132.34.114 11194
+     
+7) Send the 4 files to the rest of cloudbook agents (ca.crt, client01.crt, client01.key, client01.ovpn)
 
 FOR THE REST OF AGENTS:
 //////////////////////////////////
