@@ -34,16 +34,19 @@ CONTAINER ID        IMAGE                          COMMAND             CREATED  
 FOR THE REST OF AGENTS:
 //////////////////////////////////
 vpn_client_v2020
-1) Inside vpn_client_v2020/cloudbook_local/vpn/client/ open the file client01.ovpn and change the next line:
+1) you can skip this step if you have received the client01.ovpn file
+
+   Inside vpn_client_v2020/cloudbook_local/vpn/client/ open the file client01.ovpn and change the next line:
 	remote vpnserverv2020_vpn_cloudbook_1 1194
-   Change vpnserverv2020_vpn_cloudbook_1  by the AGENT_0 IP (Server) and the port of the server, if it is not changed use 11194 by default. For example:
+   Change vpnserverv2020_vpn_cloudbook_1  by the AGENT_0 IP (Server) and the port of the server, if it is not changed use 11194 by  
+   default. For example:
    
    instead of :
      remote vpnserverv2020_vpn_cloudbook_1 1194
    replace by:
      remote 212.132.34.114 11194
    
-2) Copy the extract files in server ca.crt, client01.crt y client01.key in vpn_client_v2020/cloudbook_local/vpn/client/
+2) Copy the extract files in server client01.ovpn, ca.crt, client01.crt y client01.key in vpn_client_v2020/cloudbook_local/vpn/client/
 
 3) RUN: docker-compose up -d --build
     if raise an error, then follow the instructions printed on screen such as:
