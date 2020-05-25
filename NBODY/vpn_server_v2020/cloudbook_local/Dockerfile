@@ -1,7 +1,7 @@
 FROM centos:centos7
 LABEL manteiner="EXPERIS IT. Maintainer Francisco Abril"
 
-RUN yum update -y 
+#RUN yum update -y 
 
 ENV TZ=Europe/Madrid
 
@@ -32,15 +32,16 @@ RUN openssl genpkey -genparam -algorithm DH -out /etc/openvpn/server/dh.pem
 RUN yum install nfs-utils -y
 
 #CLOUBOOK AGENT 0
-RUN yum update -y && \
-yum -y install \
+RUN yum -y install \
 python3.7 \
 python3-pip \
+python3-devel \
+gcc \
 git
 
 #CLOUDBOOK DEPENDENCIES
 RUN yum -y install python3-tkinter
-RUN pip3 install --trusted-host pypi.org --trusted-host files.pythonhosted.org ply flask pynat radon astunparse requests
+RUN pip3 install --trusted-host pypi.org --trusted-host files.pythonhosted.org ply flask pynat radon astunparse requests psutil
 WORKDIR "/root"
 
 WORKDIR "/etc/cloudbook"
@@ -49,14 +50,7 @@ RUN git clone https://github.com/cloudbook-project/cloudbook_maker2.git
 RUN git clone https://github.com/cloudbook-project/cloudbook_agent.git
 
 
-#CLOUDBOOK FIX
-ADD cloudbook_agent_fix/agent.py /etc/cloudbook/cloudbook_agent/agent.py
-#ADD cloudbook_maker2_fix/cloudbook_maker.py /etc/cloudbook/cloudbook_maker2/cloudbook_maker.py
-
 WORKDIR "/etc/cloudbook/cloudbook_deployer"
-
-#RUN ln -s /root/cloudbook/base_project/distributed /share
-
 
 #FOR DEBUG PURPOSE
 RUN yum -y install nano net-tools

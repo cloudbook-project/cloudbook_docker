@@ -1,8 +1,6 @@
 FROM centos:7.7.1908
 LABEL manteiner="EXPERIS IT. Maintainer Francisco Abril"
 
-RUN yum update -y 
-
 ENV TZ=Europe/Madrid
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -21,15 +19,16 @@ RUN mkdir -p /share
 
 
 #CLOUBOOK AGENT N
-#RUN yum update -y && \
 RUN yum -y install \
 python3.7 \
 python3-pip \
+python3-devel \
+gcc \
 git
 
 #CLOUDBOOK DEPENDENCIES
 RUN yum -y install python3-tkinter
-RUN pip3 install --trusted-host pypi.org --trusted-host files.pythonhosted.org ply flask pynat radon astunparse requests
+RUN pip3 install --trusted-host pypi.org --trusted-host files.pythonhosted.org ply flask pynat radon astunparse requests psutil
 WORKDIR "/root"
 
 WORKDIR "/etc/cloudbook"

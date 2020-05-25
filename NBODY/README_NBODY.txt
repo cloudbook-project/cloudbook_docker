@@ -104,12 +104,12 @@ SERVER
 #EXAMPLE OF EXPERIS EXECUTION
 SERVER
 1) docker exec -it vpnserverv2020_vpn_cloudbook_1 python3 /etc/cloudbook/cloudbook_maker2/cloudbook_maker.py -project_folder base_project
-2) docker exec -it vpnserverv2020_vpn_cloudbook_1 python3 /etc/cloudbook/cloudbook_agent/agent.py create -agent_id 0 -project_folder base_project
-3) docker exec -it vpnserverv2020_vpn_cloudbook_1 python3 /etc/cloudbook/cloudbook_agent/agent.py -agent_id agent_0 -project_folder base_project -verbose &
+2) docker exec -it vpnserverv2020_vpn_cloudbook_1 python3 /etc/cloudbook/cloudbook_agent/agent.py create -project_folder base_project -grant MEDIUM
+3) docker exec -it vpnserverv2020_vpn_cloudbook_1 python3 /etc/cloudbook/cloudbook_agent/agent.py launch -agent_id agent_0 -project_folder base_project -verbose &
 
 CLIENT
-4) docker exec -it vpnclientv2020_vpn_cloudbook_1 python3 /etc/cloudbook/cloudbook_agent/agent.py create -agent_id "" -project_folder base_project
-5) docker exec -it vpnclientv2020_vpn_cloudbook_1 python3 /etc/cloudbook/cloudbook_agent/agent.py -agent_id "AGENT_ID_GENERATED" -project_folder base_project -verbose
+4) docker exec -it vpnclientv2020_vpn_cloudbook_1 python3 /etc/cloudbook/cloudbook_agent/agent.py create -agent_id "" -project_folder base_project -grant MEDIUM
+5) docker exec -it vpnclientv2020_vpn_cloudbook_1 python3 /etc/cloudbook/cloudbook_agent/agent.py -agent_id 9T3Z0CJJ9CBGN0NUC11B -project_folder base_project -grant MEDIUM -verbose
 
 SERVER
 7) docker exec -it vpnserverv2020_vpn_cloudbook_1 python3 /etc/cloudbook/cloudbook_deployer/cloudbook_deployer.py -project_folder base_project
