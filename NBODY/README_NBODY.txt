@@ -14,8 +14,8 @@ https://docs.docker.com/compose/install/
 
 CREATE CONTAINERS
 
-ONLY FOR AGENT 0 USER:
-//////////////////////////////////
+INSTRUCTIONS ONLY FOR AGENT 0 USER:
+=====================================
 0) enter in subfolder vpn_server_v2020
 1) RUN: docker-compose up -d --build
 2) Identify DOCKER_NAME. In order to find DOCKER_NAME execute "docker ps", output example:
@@ -37,8 +37,8 @@ CONTAINER ID        IMAGE                          COMMAND             CREATED  
      
 7) Send the 4 files to the rest of cloudbook agents (ca.crt, client01.crt, client01.key, client01.ovpn)
 
-FOR THE REST OF AGENTS:
-//////////////////////////////////
+INSTRUCTIONS FOR THE REST OF AGENTS:
+====================================
 vpn_client_v2020
 1) you can skip this step if you have received the client01.ovpn file
 
