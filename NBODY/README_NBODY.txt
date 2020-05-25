@@ -66,6 +66,9 @@ INSTRUCTIONS FOR THE REST OF AGENTS:
 CONTAINER ID        IMAGE                          COMMAND             CREATED             STATUS              PORTS                     NAMES (This is the DOCKER_NAME)
 6f2f2346cc11        vpnclientv2020_vpn_cloudbook   "/entrypoint.sh"    25 minutes ago      Up 25 minutes       0.0.0.0:11194->1194/tcp   vpnclientv2020_vpn_cloudbook_1
 
+Therefore docker name in this example is: vpnclientv2020_vpn_cloudbook_1
+
+
 5) In order to check if all is correct:
    A) Check Logs: docker logs vpnclientv2020_vpn_cloudbook -f
    B) Check test file shared: docker exec -it vpnclientv2020_vpn_cloudbook bash (Enter in bash of container)
@@ -73,22 +76,25 @@ CONTAINER ID        IMAGE                          COMMAND             CREATED  
 	
 
 #CLOUDBOOK EXECUTION
+#======================
+INSTRUCTIONS FOR SERVER ( only agent 0)
+1) docker exec -it <DOCKER_NAME> python3 /etc/cloudbook/cloudbook_maker2/cloudbook_maker.py -project_folder <NOMBRE_PROYECTO>
+2) docker exec -it <DOCKER_NAME> python3 /etc/cloudbook/cloudbook_agent/agent.py create -agent_id 0 -project_folder <NOMBRE_PROYECTO>
+3) docker exec -it <DOCKER_NAME> python3 /etc/cloudbook/cloudbook_agent/agent.py -agent_id agent_0 -project_folder <NOMBRE_PROYECTO> -verbose &
+
+INSTRUCTIONS FOR CLIENTS  (rest of agents)
+4) docker exec -it <DOCKER_NAME> python3 /etc/cloudbook/cloudbook_agent/agent.py create -agent_id "" -project_folder <NOMBRE_PROYECTO>
+  for example:
+  docker exec -it vpn_client_v2020_vpn_cloudbook_1 python3 /etc/cloudbook/cloudbook_agent/agent.py create -agent_id "" -project_folder base_project
+
+5) docker exec -it <DOCKER_NAME> python3 /etc/cloudbook/cloudbook_agent/agent.py -agent_id "AGENT_ID_GENERATED" -project_folder <NOMBRE_PROYECTO>
 
 SERVER
-1) docker exec -it DOCKER_NAME python3 /etc/cloudbook/cloudbook_maker2/cloudbook_maker.py -project_folder NOMBRE_PROYECTO
-2) docker exec -it DOCKER_NAME python3 /etc/cloudbook/cloudbook_agent/agent.py create -agent_id 0 -project_folder NOMBRE_PROYECTO
-3) docker exec -it DOCKER_NAME python3 /etc/cloudbook/cloudbook_agent/agent.py -agent_id agent_0 -project_folder NOMBRE_PROYECTO -verbose &
-
-CLIENT
-4) docker exec -it DOCKER_NAME python3 /etc/cloudbook/cloudbook_agent/agent.py create -agent_id "" -project_folder NOMBRE_PROYECTO
-5) docker exec -it DOCKER_NAME python3 /etc/cloudbook/cloudbook_agent/agent.py -agent_id "AGENT_ID_GENERATED" -project_folder NOMBRE_PROYECTO
-
-SERVER
-7) docker exec -it DOCKER_NAME python3 /etc/cloudbook/cloudbook_deployer/cloudbook_deployer.py -project_folder NOMBRE_PROYECTO
-8) docker exec -it DOCKER_NAME python3 /etc/cloudbook/cloudbook_deployer/cloudbook_run.py -project_folder NOMBRE_PROYECTO
+7) docker exec -it DOCKER_NAME python3 /etc/cloudbook/cloudbook_deployer/cloudbook_deployer.py -project_folder <NOMBRE_PROYECTO>
+8) docker exec -it DOCKER_NAME python3 /etc/cloudbook/cloudbook_deployer/cloudbook_run.py -project_folder <NOMBRE_PROYECTO>
 
 
-#EXPERIS EXECUTION
+#EXAMPLE OF EXPERIS EXECUTION
 SERVER
 1) docker exec -it vpnserverv2020_vpn_cloudbook_1 python3 /etc/cloudbook/cloudbook_maker2/cloudbook_maker.py -project_folder base_project
 2) docker exec -it vpnserverv2020_vpn_cloudbook_1 python3 /etc/cloudbook/cloudbook_agent/agent.py create -agent_id 0 -project_folder base_project
