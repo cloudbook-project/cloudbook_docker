@@ -39,7 +39,7 @@ CONTAINER ID        IMAGE                          COMMAND             CREATED  
 
 INSTRUCTIONS FOR THE REST OF AGENTS:
 ====================================
-vpn_client_v2020
+
 1) you can skip this step if you have received the client01.ovpn file
 
    Inside vpn_client_v2020/cloudbook_local/vpn/client/ open the file client01.ovpn and change the next line:
