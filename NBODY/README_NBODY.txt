@@ -85,10 +85,10 @@ INSTRUCTIONS FOR SERVER ( only agent 0)
 
 INSTRUCTIONS FOR CLIENTS  (rest of agents)
 #-------------------------------------------
-4) docker exec -it <DOCKER_NAME> python3 /etc/cloudbook/cloudbook_agent/agent.py create -agent_id "" -project_folder <NOMBRE_PROYECTO>
+4) docker exec -it <DOCKER_NAME> python3 /etc/cloudbook/cloudbook_agent/agent.py create -project_folder <NOMBRE_PROYECTO>
  -grant <HIGH | MEDIUM |LOW>  
   for example:
-  docker exec -it vpn_client_v2020_vpn_cloudbook_1 python3 /etc/cloudbook/cloudbook_agent/agent.py create -agent_id "" -project_folder base_project -grant MEDIUM
+  docker exec -it vpn_client_v2020_vpn_cloudbook_1 python3 /etc/cloudbook/cloudbook_agent/agent.py create -project_folder base_project -grant MEDIUM
   
   After this command, a cloudbook agent is created. Take note of agent_ID
   
