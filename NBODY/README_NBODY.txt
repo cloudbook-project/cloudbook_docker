@@ -96,7 +96,7 @@ INSTRUCTIONS FOR CLIENTS  (rest of agents)
 5) docker exec -it <DOCKER_NAME> python3 /etc/cloudbook/cloudbook_agent/agent.py -agent_id <AGENT_ID_GENERATED> -project_folder <NOMBRE_PROYECTO>
 
  for example:
- docker exec -it vpn_client_v2020_vpn_cloudbook_1 python3 /etc/cloudbook/cloudbook_agent/agent.py -agent_id agent_NP1XWSTVFQ9UDMO96XCO -project_folder base_project
+ docker exec -it vpn_client_v2020_vpn_cloudbook_1 python3 /etc/cloudbook/cloudbook_agent/agent.py launch -agent_id agent_NP1XWSTVFQ9UDMO96XCO -project_folder base_project
 
 SERVER
 7) docker exec -it DOCKER_NAME python3 /etc/cloudbook/cloudbook_deployer/cloudbook_deployer.py -project_folder <NOMBRE_PROYECTO>
