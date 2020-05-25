@@ -29,6 +29,7 @@ CONTAINER ID        IMAGE                          COMMAND             CREATED  
 
 5) By default the port in host will be 11194 it must be open in our router. Use the same port in NAT for avoid misconfigurations.
 
+6) modify file client01.ovpn for the rest of agents. Send the 4 files to the rest of cloudbook agents (ca.crt, client01.crt, client01.key, client01.ovpn)
 
 FOR THE REST OF AGENTS:
 //////////////////////////////////
@@ -50,6 +51,7 @@ vpn_client_v2020
         docker network create cloudbook
     else
       be patient, the cointainer is being created and takes some time. 
+      during creation, it will ask you permission for access file system
      
 4) Identify DOCKER_NAME. In order to find DOCKER_NAME execute "docker ps", output example:
 CONTAINER ID        IMAGE                          COMMAND             CREATED             STATUS              PORTS                     NAMES (This is the DOCKER_NAME)
