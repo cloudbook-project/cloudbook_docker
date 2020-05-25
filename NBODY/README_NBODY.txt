@@ -45,7 +45,12 @@ vpn_client_v2020
 2) Copy the extract files in server ca.crt, client01.crt y client01.key in vpn_client_v2020/cloudbook_local/vpn/client/
 
 3) RUN: docker-compose up -d --build
-
+    if raise an error, then follow the instructions printed on screen such as:
+      execute:
+        docker network create cloudbook
+    else
+      be patient, the cointainer is being created and takes some time. 
+     
 4) Identify DOCKER_NAME. In order to find DOCKER_NAME execute "docker ps", output example:
 CONTAINER ID        IMAGE                          COMMAND             CREATED             STATUS              PORTS                     NAMES (This is the DOCKER_NAME)
 6f2f2346cc11        vpnclientv2020_vpn_cloudbook   "/entrypoint.sh"    25 minutes ago      Up 25 minutes       0.0.0.0:11194->1194/tcp   vpnclientv2020_vpn_cloudbook_1
