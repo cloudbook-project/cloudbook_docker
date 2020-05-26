@@ -45,6 +45,7 @@ RUN yum -y install nano net-tools
 #VAMOS A EVITAR PROBLEMAS DE DOS2UNIX
 RUN yum install dos2unix -y
 RUN dos2unix /entrypoint.sh
+RUN dos2unix /root/refresh.sh
 
 #ATAJOS
 RUN echo "alias ll='ls -l'" >> /root/.bashrc
