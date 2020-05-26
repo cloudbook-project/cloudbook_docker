@@ -4,6 +4,7 @@ LABEL manteiner="EXPERIS IT. Maintainer Francisco Abril"
 ENV TZ=Europe/Madrid
 ARG DEBIAN_FRONTEND=noninteractive
 
+ADD refresh.sh /root/refresh.sh
 ADD entrypoint.sh entrypoint.sh
 RUN chmod +x entrypoint.sh
 
