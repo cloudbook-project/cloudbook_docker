@@ -1,4 +1,6 @@
-REQUIREMENTS
+==============
+ REQUIREMENTS
+==============
 
 1) Install Docker CE
 WINDOWS
@@ -12,11 +14,15 @@ Included in previous installation.
 LINUX-CENTOS
 https://docs.docker.com/compose/install/
 
-CREATE CONTAINERS
+----------------------------------------------------------------------------------------------------
 
-INSTRUCTIONS ONLY FOR AGENT 0 USER:
-=====================================
-0) enter in subfolder vpn_server_v2020
+===================
+ CREATE CONTAINERS
+===================
+
+INSTRUCTIONS ONLY FOR AGENT 0 USER
+----------------------------------
+0) Enter in subfolder vpn_server_v2020
 1) RUN: docker-compose up -d --build
 2) Identify DOCKER_NAME. In order to find DOCKER_NAME execute "docker ps", output example:
 CONTAINER ID        IMAGE                          COMMAND             CREATED             STATUS              PORTS                     NAMES (This is the DOCKER_NAME)
@@ -27,96 +33,95 @@ CONTAINER ID        IMAGE                          COMMAND             CREATED  
    B) docker cp vpnserverv2020_vpn_cloudbook_1:/etc/openvpn/client/client01.crt export_client/
    C) docker cp vpnserverv2020_vpn_cloudbook_1:/etc/openvpn/client/client01.key export_client/
 
-5) By default the port in host will be 11194 it must be open in our router. Use the same port in NAT for avoid misconfigurations.
+5) By default the port in host will be 11194 it must be open in our router. Use the same port in NAT to avoid misconfigurations.
 
-6) modify file client01.ovpn for the rest of agents. 
-   for example, instead of :
+6) Modify file client01.ovpn for the rest of agents. 
+   For example, instead of:
      remote vpnserverv2020_vpn_cloudbook_1 1194
    replace by:
      remote 212.132.34.114 11194
      
 7) Send the 4 files to the rest of cloudbook agents (ca.crt, client01.crt, client01.key, client01.ovpn)
 
-INSTRUCTIONS FOR THE REST OF AGENTS:
-====================================
 
-1) you can skip this step if you have received the client01.ovpn file
+INSTRUCTIONS FOR THE REST OF AGENTS
+-----------------------------------
+1) You can skip this step if you have received the client01.ovpn file
 
    Inside vpn_client_v2020/cloudbook_local/vpn/client/ open the file client01.ovpn and change the next line:
 	remote vpnserverv2020_vpn_cloudbook_1 1194
-   Change vpnserverv2020_vpn_cloudbook_1  by the AGENT_0 IP (Server) and the port of the server, if it is not changed use 11194 by  
-   default. For example:
-   
-   instead of :
+   Change vpnserverv2020_vpn_cloudbook_1  by the AGENT_0 IP (Server) and the port of the server, if it is not changed use 11194 by default.
+   For example, instead of:
      remote vpnserverv2020_vpn_cloudbook_1 1194
    replace by:
      remote 212.132.34.114 11194
    
-2) Copy the extract files in server client01.ovpn, ca.crt, client01.crt y client01.key in vpn_client_v2020/cloudbook_local/vpn/client/
+2) Copy the files sent from agent_0 user (client01.ovpn, ca.crt, client01.crt and client01.key) in vpn_client_v2020/cloudbook_local/vpn/client/
 
 3) RUN: docker-compose up -d --build
-    if raise an error, then follow the instructions printed on screen such as:
+    If an error raises up, follow the instructions printed on screen such as:
       execute:
         docker network create cloudbook
     else
       be patient, the cointainer is being created and takes some time. 
-      during creation, it will ask you permission for access file system
+      during creation, it may ask you permission for accessing your file system
      
 4) Identify DOCKER_NAME. In order to find DOCKER_NAME execute "docker ps", output example:
 CONTAINER ID        IMAGE                          COMMAND             CREATED             STATUS              PORTS                     NAMES (This is the DOCKER_NAME)
 6f2f2346cc11        vpnclientv2020_vpn_cloudbook   "/entrypoint.sh"    25 minutes ago      Up 25 minutes       0.0.0.0:11194->1194/tcp   vpnclientv2020_vpn_cloudbook_1
 
-Therefore docker name in this example is: vpnclientv2020_vpn_cloudbook_1
+Therefore <DOCKER_NAME> in this example is: vpnclientv2020_vpn_cloudbook_1
 
-
-5) In order to check if all is correct:
+5) In order to check that everything is correct:
    A) Check Logs: docker logs vpnclientv2020_vpn_cloudbook -f
    B) Check test file shared: docker exec -it vpnclientv2020_vpn_cloudbook bash (Enter in bash of container)
       RUN: ll /share (we will see a test file)
-	
 
-#CLOUDBOOK EXECUTION
-#======================
-INSTRUCTIONS FOR SERVER ( only agent 0)
-#---------------------------------------
+----------------------------------------------------------------------------------------------------
+
+=====================
+ CLOUDBOOK EXECUTION
+=====================
+
+INSTRUCTIONS FOR SERVER (agent 0 only)
+--------------------------------------
 1) docker exec -it <DOCKER_NAME> python3 /etc/cloudbook/cloudbook_maker2/cloudbook_maker.py -project_folder <NOMBRE_PROYECTO>
-2) docker exec -it <DOCKER_NAME> python3 /etc/cloudbook/cloudbook_agent/agent.py create -agent_id 0 -project_folder <NOMBRE_PROYECTO>
-3) docker exec -it <DOCKER_NAME> python3 /etc/cloudbook/cloudbook_agent/agent.py -agent_id agent_0 -project_folder <NOMBRE_PROYECTO> -verbose &
+2) docker exec -it <DOCKER_NAME> python3 /etc/cloudbook/cloudbook_agent/agent.py create -agent_0 -project_folder <NOMBRE_PROYECTO>
+3) docker exec -it <DOCKER_NAME> python3 /etc/cloudbook/cloudbook_agent/agent.py launch -agent_id agent_0 -project_folder <NOMBRE_PROYECTO> -verbose &
 
 INSTRUCTIONS FOR CLIENTS  (rest of agents)
-#-------------------------------------------
-4) docker exec -it <DOCKER_NAME> python3 /etc/cloudbook/cloudbook_agent/agent.py create -project_folder <NOMBRE_PROYECTO>
- -grant <HIGH | MEDIUM |LOW>  
-  for example:
-  docker exec -it vpn_client_v2020_vpn_cloudbook_1 python3 /etc/cloudbook/cloudbook_agent/agent.py create -project_folder base_project -grant MEDIUM
-  
-  After this command, a cloudbook agent is created. Take note of agent_ID
-  
+------------------------------------------
+4) docker exec -it <DOCKER_NAME> python3 /etc/cloudbook/cloudbook_agent/agent.py create -project_folder <NOMBRE_PROYECTO> -grant <HIGH | MEDIUM |LOW>  
+   For example:
+     docker exec -it vpn_client_v2020_vpn_cloudbook_1 python3 /etc/cloudbook/cloudbook_agent/agent.py create -project_folder base_project -grant MEDIUM
+   After this command, a cloudbook agent is created. Take note of agent_ID
 
 5) docker exec -it <DOCKER_NAME> python3 /etc/cloudbook/cloudbook_agent/agent.py -agent_id launch <AGENT_ID_GENERATED> -project_folder <NOMBRE_PROYECTO> [-verbose]
+  For example:
+    docker exec -it vpn_client_v2020_vpn_cloudbook_1 python3 /etc/cloudbook/cloudbook_agent/agent.py launch -agent_id agent_NP1XWSTVFQ9UDMO96XCO -project_folder base_project -verbose
 
- for example:
- docker exec -it vpn_client_v2020_vpn_cloudbook_1 python3 /etc/cloudbook/cloudbook_agent/agent.py launch -agent_id agent_NP1XWSTVFQ9UDMO96XCO -project_folder base_project -verbose
+INSTRUCTIONS FOR SERVER
+-----------------------
+6) docker exec -it DOCKER_NAME python3 /etc/cloudbook/cloudbook_deployer/cloudbook_deployer.py -project_folder <NOMBRE_PROYECTO>
+   The list of DUs and which agents will load each of them will be displayed on screen. This process may take some time.
 
-SERVER
-7) docker exec -it DOCKER_NAME python3 /etc/cloudbook/cloudbook_deployer/cloudbook_deployer.py -project_folder <NOMBRE_PROYECTO>
-    on screen you have the list of DUs and the agents that will load each DU
+7) docker exec -it DOCKER_NAME python3 /etc/cloudbook/cloudbook_deployer/cloudbook_run.py -project_folder <NOMBRE_PROYECTO>
+   This command finally launches the program with cloudbook
 
-8) docker exec -it DOCKER_NAME python3 /etc/cloudbook/cloudbook_deployer/cloudbook_run.py -project_folder <NOMBRE_PROYECTO>
+----------------------------------------------------------------------------------------------------
 
----------------------------------------   END --------------------------------------------------------------
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////
-#EXAMPLE OF EXPERIS EXECUTION
+=================================
+ EXAMPLE OF EXECUTION BY EXPERIS
+=================================
 SERVER
 1) docker exec -it vpnserverv2020_vpn_cloudbook_1 python3 /etc/cloudbook/cloudbook_maker2/cloudbook_maker.py -project_folder base_project
-2) docker exec -it vpnserverv2020_vpn_cloudbook_1 python3 /etc/cloudbook/cloudbook_agent/agent.py create -agent_id 0 -project_folder base_project
-3) docker exec -it vpnserverv2020_vpn_cloudbook_1 python3 /etc/cloudbook/cloudbook_agent/agent.py -agent_id agent_0 -project_folder base_project -verbose &
+2) docker exec -it vpnserverv2020_vpn_cloudbook_1 python3 /etc/cloudbook/cloudbook_agent/agent.py create -agent_0 -project_folder base_project -grant MEDIUM
+3) docker exec -it vpnserverv2020_vpn_cloudbook_1 python3 /etc/cloudbook/cloudbook_agent/agent.py launch -agent_id agent_0 -project_folder base_project -verbose &
 
 CLIENT
-4) docker exec -it vpnclientv2020_vpn_cloudbook_1 python3 /etc/cloudbook/cloudbook_agent/agent.py create -agent_id "" -project_folder base_project
-5) docker exec -it vpnclientv2020_vpn_cloudbook_1 python3 /etc/cloudbook/cloudbook_agent/agent.py -agent_id "AGENT_ID_GENERATED" -project_folder base_project -verbose
+4) docker exec -it vpnclientv2020_vpn_cloudbook_1 python3 /etc/cloudbook/cloudbook_agent/agent.py create -project_folder base_project -grant MEDIUM
+5) docker exec -it vpnclientv2020_vpn_cloudbook_1 python3 /etc/cloudbook/cloudbook_agent/agent.py launch -agent_id <AGENT_ID_GENERATED> -project_folder base_project -verbose
 
 SERVER
-7) docker exec -it vpnserverv2020_vpn_cloudbook_1 python3 /etc/cloudbook/cloudbook_deployer/cloudbook_deployer.py -project_folder base_project
-8) docker exec -it vpnserverv2020_vpn_cloudbook_1 python3 /etc/cloudbook/cloudbook_deployer/cloudbook_run.py -project_folder base_project
+6) docker exec -it vpnserverv2020_vpn_cloudbook_1 python3 /etc/cloudbook/cloudbook_deployer/cloudbook_deployer.py -project_folder base_project
+7) docker exec -it vpnserverv2020_vpn_cloudbook_1 python3 /etc/cloudbook/cloudbook_deployer/cloudbook_run.py -project_folder base_project
