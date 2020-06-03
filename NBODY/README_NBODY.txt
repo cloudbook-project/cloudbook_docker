@@ -109,6 +109,38 @@ INSTRUCTIONS FOR SERVER
    This command finally launches the program with cloudbook
 
 ----------------------------------------------------------------------------------------------------
+=======================================================
+  STOP and RESTART and RECREATION of Docker for admin purposes
+====================================================
+to see the current containers:
+> docker container list -a
+to see the current running containers
+> docker ps
+to stop and delete the container:
+> docker stop vpn_client_v2020_vpn_cloudbook_1 
+> docker rm vpn_client_v2020_vpn_cloudbook_1
+to check if there are images:
+> docker images -a
+to asure docker will not use image cache:
+> docker rmi $(docker images -a -q)   //only works in linux
+> docker system prune -a
+afterwards: 
+> docker images -a //should show none images belonging to stopped containers
+to recreate the container
+> cd NBODY
+> cd vpn_client_v2020   //here must exist .yml file
+> docker network create cloudbook
+> docker-compose up -d --build
+> docker ps  //to see your container name
+> docker exec -it vpn_client_v2020_vpn_cloudbook_1 sh  //to enter in shell
+> #exit  //to exit from shell
+> //create the agent
+> docker exec -it vpn_client_v2020_vpn_cloudbook_1 python3 /etc/cloudbook/cloudbook_agent/agent.py create -project_folder base_project -grant MEDIUM
+>//launch the agent
+>docker exec -it vpn_client_v2020_vpn_cloudbook_1 python3 /etc/cloudbook/cloudbook_agent/agent.py launch -agent_id agent_VDX538NG0EZXFO9OHVMJ -project_folder base_project -verbose
+> //to stop agent CTRL+C
+
+----------------------------------------------------------------------------------------------------
 
 ===================================
   EXAMPLE OF EXECUTION BY EXPERIS
