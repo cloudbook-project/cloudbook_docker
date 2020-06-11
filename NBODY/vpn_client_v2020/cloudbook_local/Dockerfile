@@ -29,7 +29,7 @@ git
 
 #CLOUDBOOK DEPENDENCIES
 RUN yum -y install python3-tkinter
-RUN pip3 install --trusted-host pypi.org --trusted-host files.pythonhosted.org ply flask pynat radon astunparse requests psutil
+RUN pip3 install --trusted-host pypi.org --trusted-host files.pythonhosted.org ply flask pynat radon astunparse requests psutil ifaddr
 WORKDIR "/root"
 
 WORKDIR "/etc/cloudbook"
